@@ -1,9 +1,11 @@
-sbt-gzip
+# sbt-unzip-plugin
 ==========
 
-[sbt-web] plugin for gzip compressing web assets.
+Extract Zip dependencies with SBT.
 
-[![Build Status](https://travis-ci.org/sbt/sbt-gzip.png?branch=master)](https://travis-ci.org/sbt/sbt-gzip) [![Download](https://api.bintray.com/packages/sbt-web/sbt-plugin-releases/sbt-gzip/images/download.svg)](https://bintray.com/sbt-web/sbt-plugin-releases/sbt-gzip/_latestVersion)
+This plugin will extract all dependencies finishing by ".zip" extension in your base directory.
+
+You can configure exclusion and the path where you want to extract the files.
 
 Add plugin
 ----------
@@ -14,40 +16,46 @@ Add the plugin to `project/plugins.sbt`. For example:
 addSbtPlugin("com.typesafe.sbt" % "sbt-unzip" % "1.0.0")
 ```
 
-Your project's build file also needs to enable sbt-web plugins. For example with build.sbt:
-
-    lazy val root = (project.in file(".")).enablePlugins(SbtWeb)
-
-As with all sbt-web asset pipeline plugins you must declare their order of execution e.g.:
+In your build.sbt:
 
 ```scala
-pipelineStages := Seq(gzip)
-```
+val root = (project in file(".")).enablePlugins(UnzipPlugin)
+````
+
 
 Configuration
 -------------
 
-### Filters
+### Exclusion
 
-Include and exclude filters can be provided. For example, to only create
-gzip files for `.js` files:
+By default, all dependency files finishing by "."zip" will be extract. You can make an exclusion list.
 
-```scala
-includeFilter in gzip := "*.js"
-```
-
-Or to exclude all `.js` files but include any other files:
+In your build.sbt, add the exclusion:
 
 ```scala
-excludeFilter in gzip := "*.js"
+excludeDependencies in unzip := Seq(
+  ExclusionRule("com.jcabi", "DynamaDBLocal")
+)
 ```
 
-The default filter is to only include `.html`, `.css`, and `.js` files:
+### Path of extraction
+
+By default, the path of extraction is your project basedir, you can customize it. 
+
+In your build.sbt, add the exclusion:
 
 ```scala
-includeFilter in gzip := "*.html" || "*.css" || "*.js"
+pathToExtract in unzip := new sbt.File(baseDirectory.value.getPath  + "/target/universal/stage" )
 ```
 
+Run
+-------------
+
+In your build.sbt, define when the task (extract of zip) should be executed, in this example, it's before compilation:
+
+```scala
+packageBin in Compile := (packageBin in Compile dependsOn unzip).value
+```
 
 Contribution policy
 -------------------
@@ -63,6 +71,5 @@ License
 This code is licensed under the [Apache 2.0 License][apache].
 
 
-[sbt-web]: https://github.com/sbt/sbt-web
 [cla]: http://www.typesafe.com/contribute/cla
 [apache]: http://www.apache.org/licenses/LICENSE-2.0.html

@@ -1,6 +1,3 @@
-*.class
-*.log
-
 # sbt specific
 dist/*
 target/
@@ -15,4 +12,3 @@ project/plugins/project/
 # Idea
 .idea/
 .idea_modules/
-
