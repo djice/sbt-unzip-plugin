@@ -1,5 +1,4 @@
 import sbt.util
-import xerial.sbt.Sonatype.autoImport.sonatypeCredentialHost
 
 logLevel := util.Level.Debug
 
