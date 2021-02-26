@@ -32,10 +32,8 @@ object UnzipPlugin extends AutoPlugin {
         cReport.modules.foreach { mReport =>
           val exclusionRule = ExclusionRule(mReport.module.organization, mReport.module.name)
           if(!dependenciesToExcludeOfUnzipList.contains(exclusionRule)) {
-            log.info(mReport.module.toString())
             mReport.artifacts.foreach { artifact =>
               val artifactFile = artifact._2
-              log.info(artifact.toString())
               if (artifactFile.name.endsWith(".zip")) {
                 log.info(s"Unpacking ${mReport.module.name} bundle: ${artifactFile.getAbsolutePath} in ${filePathToExtract}")
                 IO.unzip(artifactFile, filePathToExtract)
