@@ -1,0 +1,4 @@
+# check if the file gets created
+> stage
+$ absent target/universal/stage/conf/start-instance.conf.j2
+

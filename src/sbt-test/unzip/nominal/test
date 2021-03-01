@@ -1,0 +1,4 @@
+# check if the file gets created
+> stage
+$ exists target/universal/stage/DynamoDBLocal.jar
+
