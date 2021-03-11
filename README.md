@@ -10,14 +10,13 @@ You can configure exclusion and the path where you want to extract the files.
 Add plugin
 ----------
 
-Version: [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.djice/sbt-unzip/badge.svg)](https://maven-badges.
-herokuapp.com/maven-central/io.github.djice/sbt-unzip)
+LAST_VERSION: [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.djice/sbt-unzip/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.djice/sbt-unzip)
 
 
 Add the plugin to `project/plugins.sbt`. For example:
 
 ```scala
-addSbtPlugin("com.typesafe.sbt" % "sbt-unzip" % "1.0.0")
+addSbtPlugin("com.typesafe.sbt" % "sbt-unzip" % "LAST_VERSION")
 ```
 
 In your build.sbt:
